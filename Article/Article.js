@@ -85,6 +85,22 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: "Eloy's New article",
+    date: 'Jan 1st, 2019',
+    firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
 
@@ -112,3 +128,63 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+
+//Component
+const atricleComponent = (title, day, fp, sp, tp) => {
+  //atricle div
+  const article = document.createElement('div');
+  article.classList.add('article');
+
+  //<h2> tag
+  const header = document.createElement('h2');
+  header.textContent = title; //title parameter used
+
+  //date <p> tag
+  const date = document.createElement('p');
+  date.classList.add('date');
+  date.textContent = day; //day parameter used
+
+  //3 separate paragraph elements
+  const para1 = document.createElement('p');
+  const para2 = document.createElement('p');
+  const para3 = document.createElement('p');
+  para1.textContent = fp; //fp (first paragraph) parameter used
+  para2.textContent = sp; //sp (second paragraph) parameter used
+  para3.textContent = tp; //tp (third paragraph) parameter used
+
+  //span button
+  const button = document.createElement('span');
+  button.classList.add('expandButton');
+  button.textContent = '\u25bc';
+  //event listener for button
+  button.addEventListener('click', (event) =>{
+    article.classList.toggle('article-open');
+    if (button.textContent === '\u25bc') {
+      button.textContent = '\u25b2';
+    } else {
+      button.textContent = '\u25bc';
+    }
+  })
+
+  //added everthing to article
+  article.appendChild(header);
+  article.appendChild(date);
+  article.appendChild(para1);
+  article.appendChild(para2);
+  article.appendChild(para3);
+  article.appendChild(button);
+
+  return article;
+}
+
+
+//declared and added article to page
+const page = document.querySelector('.articles');
+
+//Loop through all items in data and display them to the page
+data.forEach((item) => {
+  const newArticle = atricleComponent(item.title, item.date, item.firstParagraph, item.secondParagraph, item.thirdParagraph)
+  page.appendChild(newArticle);
+})
+

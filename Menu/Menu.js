@@ -33,3 +33,36 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
   
 */
+
+const menuComponent = (arr) => {
+  //ul tag declared
+  const ul = document.createElement('ul');
+
+  //menu 
+  const menu = document.createElement('div');
+  menu.classList.add('menu');
+
+  //ul tag added to menu
+  menu.appendChild(ul);
+
+  //loop to make list items and add them to the ul list
+  arr.forEach((item) => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    ul.appendChild(li);
+  })
+
+  //selected button on dom and made event listener
+  const button = document.querySelector('.menu-button');
+  button.addEventListener('click',(event) => {
+    menu.classList.toggle('menu--open');
+    gsap.from('.menu--open', {duration: 1, x: -350});
+  })
+
+  return menu;
+}
+
+const header = document.querySelector('.header');
+
+header.appendChild(menuComponent(menuItems));
+
